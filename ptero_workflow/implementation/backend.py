@@ -190,6 +190,11 @@ class Backend(object):
     def get_workflow_outputs(self, workflow_id):
         return self._get_workflow(workflow_id).get_outputs()
 
+    def get_executions(self, workflow_id):
+        executions = self.session.query(models.Execution).\
+                filter_by(workflow_id=workflow_id).all()
+        return [e.as_dict(detailed=False) for e in executions]
+
     def _get_execution(self, execution_id):
         execution = self.session.query(Execution).get(execution_id)
         if execution is not None:

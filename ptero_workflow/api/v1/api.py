@@ -12,6 +12,9 @@ api.add_resource(views.WorkflowListView, '/workflows', endpoint='workflow-list')
 api.add_resource(views.WorkflowDetailView,
     '/workflows/<int:workflow_id>', endpoint='workflow-detail')
 
+api.add_resource(views.ExecutionListView,
+    '/executions', endpoint='execution-list')
+
 api.add_resource(views.ExecutionDetailView,
     '/executions/<int:execution_id>', endpoint='execution-detail')
 

@@ -86,6 +86,30 @@ class WorkflowDetailView(Resource):
             return _prepare_workflow_data(workflow_id, workflow_as_dict), 200
 
 
+class ExecutionListView(Resource):
+    @logged_response(logger=LOG)
+    @sends_404
+    def get(self):
+        given_keys = set(request.args.keys())
+        valid_keys = set(['workflow_id'])
+        invalid_keys = given_keys - valid_keys
+
+        if not given_keys:
+            error = 'No query arguments provided'
+            return { 'error': error }, 400
+
+        if invalid_keys:
+            error = 'Invalid query arguments: %s' % ', '.join(invalid_keys)
+            return { 'error': error }, 400
+
+        if 'workflow_id' not in given_keys:
+            error = 'You must specify a workflow_id'
+            return { 'error': error }, 400
+
+        executions = g.backend.get_executions(
+                workflow_id=request.args['workflow_id'])
+        return {'executions': executions}, 200
+
 class ExecutionDetailView(Resource):
     @logged_response(logger=LOG)
     @sends_404
@@ -110,6 +134,9 @@ class ExecutionDetailView(Resource):
 def _prepare_workflow_data(workflow_id, workflow_as_dict):
     result = workflow_as_dict.copy()  # do not modify the passed in arg
     result['reports'] = _generate_report_links(workflow_id)
+    result['urls'] = {
+            'executions' : _executions_url(workflow_id),
+    }
     return result
 
 
@@ -120,6 +147,10 @@ def _prepare_workflow_data(workflow_id, workflow_as_dict):
 def _generate_report_links(workflow_id):
     return {n: _report_url(workflow_id, n) for n in reports.report_names()}
 
+def _executions_url(workflow_id):
+    base_url = url_for('execution-list', _external=True)
+
+    return '%s?%s' % (base_url, urllib.urlencode({'workflow_id': workflow_id}))
 
 def _report_url(workflow_id, report_type):
     base_url = url_for('report', report_type=report_type, _external=True)
