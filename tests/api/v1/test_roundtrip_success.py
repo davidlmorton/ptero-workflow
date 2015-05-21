@@ -30,6 +30,7 @@ class RoundTripSuccess(object):
     def get_should_return_post_data(self):
         get_response = self.get(self.response.headers.get('Location'))
         del(get_response.DATA['reports'])
+        del(get_response.DATA['urls'])
         del(get_response.DATA['status'])
         if self.post_data.get('name') is None:
             del(get_response.DATA['name'])
