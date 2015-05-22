@@ -117,7 +117,7 @@ class Execution(Base):
                 webhook.send_after_commit(**webhook_data)
 
     def as_dict(self, detailed):
-        result = {name: getattr(self, name) for name in ['name', 'color',
+        result = {name: getattr(self, name) for name in ['id', 'name', 'color',
             'parent_color', 'data', 'colors', 'begins', 'status']}
 
         result['status_history'] = [h.as_dict(detailed=detailed)

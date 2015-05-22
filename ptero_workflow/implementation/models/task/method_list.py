@@ -47,6 +47,7 @@ class MethodList(Task):
 
     def as_dict(self, detailed):
         result = {
+            'id': self.id,
             'methods': [m.as_dict(detailed=detailed)
                 for m in self.method_list],
         }

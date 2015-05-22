@@ -5,6 +5,18 @@ import json
 import sys
 
 
+def scrub_ids(struct):
+    if isinstance(struct, dict):
+        for key in struct.keys():
+            if key == 'id':
+                del struct[key]
+            else:
+                scrub_ids(struct[key])
+    elif isinstance(struct, list):
+        for item in struct:
+            scrub_ids(item)
+
+
 class RoundTripSuccess(object):
     __metaclass__ = abc.ABCMeta
 
@@ -43,6 +55,7 @@ class RoundTripSuccess(object):
     def compareDictAsJSON(self, expected, actual):
         is_ok = 1
         expected_json = self._to_json(expected).splitlines(1)
+        scrub_ids(actual)
         actual_json = self._to_json(actual).splitlines(1)
         for line in difflib.unified_diff(expected_json, actual_json,
                 fromfile='Expected', tofile='Actual'):

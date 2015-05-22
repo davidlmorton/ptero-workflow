@@ -93,6 +93,7 @@ class Workflow(Base):
         links = [l.as_dict(detailed=detailed) for l in self.links]
 
         result = {
+            'id': self.id,
             'tasks': tasks,
             'links': links,
             'inputs': self.root_task.get_inputs(colors=[0], begins=[0]),

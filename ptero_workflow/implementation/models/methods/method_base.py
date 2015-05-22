@@ -153,6 +153,7 @@ class Method(Base):
 
     def as_dict(self, detailed):
         result = {
+            'id': self.id,
             'name': self.name,
             'service': self.service,
             'parameters': self.get_parameters(detailed=detailed),
