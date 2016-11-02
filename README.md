@@ -1,6 +1,6 @@
 # PTero Workflow Service
 [![Build Status](https://travis-ci.org/davidlmorton/ptero-workflow.svg?branch=master)](https://travis-ci.org/davidlmorton/ptero-workflow)
-[![Coverage Status](https://coveralls.io/repos/github/davidlmorton/ptero-workflow/badge.svg)](https://coveralls.io/github/davidlmorton/ptero-workflow)
+[![Coverage Status](https://coveralls.io/repos/github/davidlmorton/ptero-workflow/badge.svg?branch=master)](https://coveralls.io/github/davidlmorton/ptero-workflow?branch=master)
 [![Requirements Status](https://requires.io/github/davidlmorton/ptero-workflow/requirements.svg?branch=master)](https://requires.io/github/davidlmorton/ptero-workflow/requirements/?branch=master)
 
 
