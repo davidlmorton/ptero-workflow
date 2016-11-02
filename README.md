@@ -11,8 +11,8 @@ nets](https://en.wikipedia.org/wiki/Petri_net) with some extensions for
 [color](https://en.wikipedia.org/wiki/Coloured_Petri_net) and token data.
 
 The other existing components are: the [petri
-core](https://github.com/genome/ptero-petri) service and a [forking shell
-command](https://github.com/genome/ptero-shell-command) service.
+core](https://github.com/davidlmorton/ptero-petri) service and a [forking shell
+command](https://github.com/davidlmorton/ptero-shell-command) service.
 
 
 ## Testing
