@@ -1,12 +1,12 @@
 -e git+http://github.com/davidlmorton/ptero-common.git@fa13bd3#egg=ptero_common
-alembic == 0.8.4
-celery == 3.1.19
-flask == 0.10.1
+alembic == 0.8.8
+celery == 3.1.24
+flask == 0.11.1
 flask-restful == 0.3.5
-gunicorn == 19.4.5
+gunicorn == 19.6.0
 jsonschema == 2.5.1
 librabbitmq == 1.6.1
-networkx == 1.10
-pip == 7.1.2
-psycopg2 == 2.6.1
-sqlalchemy == 1.0.11
+networkx == 1.11
+pip == 9.0.0
+psycopg2 == 2.6.2
+sqlalchemy == 1.1.3
