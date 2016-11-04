@@ -1,4 +1,4 @@
-from flask.ext.restful import Api
+from flask_restful import Api
 from . import views
 from ptero_workflow.urls import ENDPOINT_INFO
 

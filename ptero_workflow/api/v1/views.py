@@ -3,7 +3,7 @@ from . import validators
 from ...implementation import exceptions
 from flask import g, request
 from ptero_workflow.urls import url_for, url_parse
-from flask.ext.restful import Resource
+from flask_restful import Resource
 from jsonschema import ValidationError
 from ...implementation.exceptions import ValidationError as PteroValidationError
 from ...implementation.exceptions import InvalidExecutionUrlError
