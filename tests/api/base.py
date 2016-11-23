@@ -1,14 +1,13 @@
-import requests
+from crier.script import Script
+import crier
 import json
 import os
+import requests
 import subprocess
 import time
 import unittest
-import crier
-from crier.script import Script
 
 __all__ = ['BaseAPITest']
-
 
 
 class BaseAPITest(unittest.TestCase):
