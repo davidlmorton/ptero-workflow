@@ -1,4 +1,5 @@
 -e git+http://github.com/vectis/ptero-common.git@9b8d976#egg=ptero_common
+-e git+http://github.com/vectis/crier.git@3bc0b4c#egg=crier
 alembic == 0.8.8
 celery == 3.1.24
 flask == 0.11.1

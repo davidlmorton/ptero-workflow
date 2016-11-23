@@ -4,64 +4,10 @@ import os
 import subprocess
 import time
 import unittest
+import crier
+from crier.script import Script
 
 __all__ = ['BaseAPITest']
-
-
-class WebhookServer:
-    def __init__(self, response_codes):
-        self._response_codes = response_codes
-        self._webserver = None
-
-    def start(self):
-        if self._webserver:
-            raise RuntimeError('Cannot start multiple webservers in one test')
-        command_line = ['python', self._path,
-                        '--stop-after', str(self._timeout), '--response-codes']
-        command_line.extend(map(str, self._response_codes))
-        self._webserver = subprocess.Popen(
-            command_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        self._wait()
-        self._port = int(self._webserver.stderr.readline().rstrip())
-
-    def stop(self):
-        while self._webserver is not None:
-            exit_code = self._webserver.poll()
-            if exit_code is not None:
-                if exit_code == 0:
-                    stdout, stderr = self._webserver.communicate()
-                    self._webserver = None
-                    self._webhook_stdout = stdout
-                    self._webhook_stderr = stderr
-
-                    if stdout:
-                        return map(json.loads, stdout.split('\n')[:-1])
-                    else:
-                        return []
-                elif exit_code == -14:
-                    raise RuntimeError("Webhook listener timed out after (%s) seconds" %
-                            self._timeout)
-                else:
-                    raise RuntimeError("Webhook listener exited non-zero (%s)" %
-                            exit_code)
-            else:
-                self._wait()
-
-    def _wait(self):
-        time.sleep(1)
-
-    @property
-    def url(self):
-        return 'http://localhost:%d/' % self._port
-
-    @property
-    def _path(self):
-        return os.path.join(os.path.dirname(__file__), 'logging_webserver.py')
-
-    @property
-    def _timeout(self):
-        return 25
-
 
 
 
@@ -71,7 +17,8 @@ class BaseAPITest(unittest.TestCase):
         self.api_port = int(os.environ['PTERO_WORKFLOW_PORT'])
 
     def create_webhook_server(self, response_codes):
-        server = WebhookServer(response_codes)
+        scripts = [Script(status_code=rc) for rc in response_codes]
+        server = crier.Webserver(scripts=scripts)
         server.start()
         return server
 
